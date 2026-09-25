@@ -22,26 +22,26 @@ string toLower(string str){
 }
 
 
-bool validateInput(string input){
-    if(input.length() > 1){
-        return false;
+char validateInput(string input){
+    if(input.length() != 1){
+        return ' ';
     }
 
     if(!isalpha(input[0])){
-        return false;
+        return ' ';
     }
 
-    return true;
+    return std::tolower(input[0]);
 }
 
 bool checkOccurance(char input, const string &wordToGuess){
-    return wordToGuess.contains(std::tolower(input));
+    return wordToGuess.contains(input);
 }
 
 void updateWord(string &dashedWord, const string &wordToGuess, char input){
     for(long unsigned int i = 0; i < wordToGuess.length(); i++){
-        if(wordToGuess[i] == std::tolower(input)){
-            dashedWord[i] = std::tolower(input);
+        if(wordToGuess[i] == input){
+            dashedWord[i] = input;
         }
     }
 }

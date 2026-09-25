@@ -21,23 +21,25 @@ int main(void){
 
         mainFrame(attempts, MAX_ATTEMPTS, dashedWord);
 
-        string input = "";
+        string rawInput = "";
         cout << "Type a character: ";
-        cin >> input;
+        std::getline(cin, rawInput);
 
-        if(!validateInput(input)){
+        char input = validateInput(rawInput);
+        if(input == ' '){
             cout << "Invalid input. Try again." << endl;
             wait();
             continue;
         }
+        
 
-        if(!checkOccurance(input[0], wordToGuess)){
+        if(!checkOccurance(input, wordToGuess)){
             cout << "The character: " << input << " isn't in the word to guess." << endl;
             attempts++;
             wait();
             continue;
         } else {
-            updateWord(dashedWord, wordToGuess, input[0]);
+            updateWord(dashedWord, wordToGuess, input);
         }
     }    
     return 0;
