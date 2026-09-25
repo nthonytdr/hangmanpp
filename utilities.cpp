@@ -1,11 +1,55 @@
 #include <iostream>
+#include <cctype>
+#include <string>
+#include <thread>
+#include <chrono>
 
 using std::cin;
 using std::cout;
 using std::string;
 using std::endl;
 
-void mainFrame(int attempts, const int maxAttempts, string dashedWord){
+void mainFrame(int attempts, const int maxAttempts, string &dashedWord){
     cout << "Word to guess is: " << dashedWord << endl;
-    cout << "Attempt available: " << maxAttempts - attempts << endl;
+    cout << "Attempts available: " << maxAttempts - attempts << endl;
+}
+
+string toLower(string str){
+    for(long unsigned int i = 0; i < str.length(); i++){
+        str[i] = std::tolower(str[i]);
+    }
+    return str;
+}
+
+
+bool validateInput(string input){
+    if(input.length() > 1){
+        return false;
+    }
+
+    if(!isalpha(input[0])){
+        return false;
+    }
+
+    return true;
+}
+
+bool checkOccurance(char input, const string &wordToGuess){
+    return wordToGuess.contains(std::tolower(input));
+}
+
+void updateWord(string &dashedWord, const string &wordToGuess, char input){
+    for(long unsigned int i = 0; i < wordToGuess.length(); i++){
+        if(wordToGuess[i] == std::tolower(input)){
+            dashedWord[i] = std::tolower(input);
+        }
+    }
+}
+
+void clearScreen(void){
+    cout << "\033[2J\033[3J\033[H";
+}
+
+void wait(void){
+    std::this_thread::sleep_for(std::chrono::seconds(3));
 }
